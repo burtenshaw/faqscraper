@@ -11,7 +11,9 @@ ia = imdb.IMDb()
 # FAQs
 
 # Split the Faqs into questions and answers return as list:
+
 def faqSplitter(movie_id):
+
     try:
         faq = ia.get_movie_faqs(movie_id)['data']['faqs']
         x = []
@@ -22,6 +24,7 @@ def faqSplitter(movie_id):
         pass
 
 def faqScraper(index_file, output_file, start_from):
+
     faq_dict = corpus.load(start_from)
     f = corpus.load(index_file)
     print "Building Index"
@@ -30,14 +33,20 @@ def faqScraper(index_file, output_file, start_from):
     for i in f:
         if i[0] not in s:
             x.append(i[0])
-    print str(len(x)) + " ID's to scrape"
-    if len(x) < 1:
+
+    t = len(x)
+    print str(t) + " ID's to scrape"
+
+    if t < 1:
         pass
     else:
         print "Starting Scrape"
         for i in x:
             faq_dict.update(corpus.format(faqSplitter(i), i))
+            t -= 1
+            print(str(t) + ' To go')
 
+        print('Saving')
         corpus.save(output_file, faq_dict)
     
 index_file = "data/index_0.json"

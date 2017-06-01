@@ -56,14 +56,13 @@ def generalFaq(s_num, k_num):
 
 print "loading index"
 k = corpus.load("data/index_0.json")
-scrape = "data/scraped.json"
 s_num = int(k[-1][0])
 
 print "starting scrape loop"
-for i in range(1,200):
+for i in range(1,600):
     z = generalFaq(s_num, 1000)
     k.extend(z)
     f = "data/index_0.json"
     corpus.save(f, k)
-    check.response(k, scrape)
+    check.indexFaqCounter(k)
     s_num += 1000
